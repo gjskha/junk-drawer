@@ -1,0 +1,91 @@
+From gmontague@example.com  Tue Nov 24 14:08:35 2015
+Return-Path: <gmontague@example.com>
+X-Original-To: gmontague@sinker.qa.example.com
+Delivered-To: gmontague@sinker.qa.example.com
+Received: from ht1-outbound.example.com (exch-htcas901.corp.example.com [172.22.10.73])
+	by sinker.qa.example.com (Postfix) with ESMTP id 804951B2001
+	for <gmontague@sinker.qa.example.com>; Tue, 24 Nov 2015 14:08:35 -0800 (PST)
+Received: from elnido.corp.example.com (172.20.30.114) by
+ exch-htcas901.corp.example.com (172.22.10.73) with Microsoft SMTP Server
+ (TLS) id 14.3.266.1; Tue, 24 Nov 2015 14:08:34 -0800
+MIME-Version: 1.0
+X-Received: from EXCH-MBX903.corp.example.com ([fe80::1933:9651:a2d5:36ba]) by
+ EXCH-HTCAS902.corp.example.com ([::1]) with mapi id 14.03.0266.001; Tue, 24
+ Nov 2015 14:05:58 -0800
+From: Guy Montague <gmontague@example.com>
+To: Guy Montague <gmontague@example.com>
+Subject:
+Thread-Index: AdEnBDQeR3Kvra0iS7qXYMK+kTV9Uw==
+Date: Tue, 24 Nov 2015 14:05:57 -0800
+Message-ID: <4FFDE40E6B423D42ACF00AC3846DF2FAAA563654@EXCH-MBX903.corp.example.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+Content-Type: multipart/mixed;
+	boundary="_004_4FFDE40E6B423D42ACF00AC3846DF2FAAA563654EXCHMBX903corpc_"
+Resent-Date: Tue, 24 Nov 2015 14:08:01 -0800
+Resent-From: Guy Montague <gmontague@example.com>
+Resent-To: <gmontague@sinker.qa.example.com>
+ReSent-Subject: Resent mail....
+Resent-Message-ID: <alpine.DEB.2.11.1511241408010.2645@elnido.corp.example.com>
+ReSent-User-Agent: Alpine 2.11 (DEB 23 2013-08-11)
+X-Originating-IP: [172.20.30.114]
+Status: RO
+
+--_004_4FFDE40E6B423D42ACF00AC3846DF2FAAA563654EXCHMBX903corpc_
+Content-Type: multipart/alternative;
+	boundary="_000_4FFDE40E6B423D42ACF00AC3846DF2FAAA563654EXCHMBX903corpc_"
+
+--_000_4FFDE40E6B423D42ACF00AC3846DF2FAAA563654EXCHMBX903corpc_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+test
+
+--_000_4FFDE40E6B423D42ACF00AC3846DF2FAAA563654EXCHMBX903corpc_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html dir=3D"ltr">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style id=3D"owaParaStyle" type=3D"text/css">P {margin-top:0;margin-bottom:=
+0;}</style>
+</head>
+<body ocsi=3D"0" fpstyle=3D"1">
+<div style=3D"direction: ltr;font-family: Tahoma;color: #000000;font-size: =
+10pt;">test<br>
+</div>
+</body>
+</html>
+
+--_000_4FFDE40E6B423D42ACF00AC3846DF2FAAA563654EXCHMBX903corpc_--
+
+--_004_4FFDE40E6B423D42ACF00AC3846DF2FAAA563654EXCHMBX903corpc_
+Content-Type: application/zip; name="eicar.zip"
+Content-Description: eicar.zip
+Content-Disposition: attachment; filename="eicar.zip"; size=964;
+	creation-date="Tue, 24 Nov 2015 22:05:17 GMT";
+	modification-date="Tue, 24 Nov 2015 22:05:17 GMT"
+Content-Transfer-Encoding: base64
+
+UEsDBAoAAAAAANVueEelN6V54AIAAOACAAAHABwAYmFyLnppcFVUCQADodxUVrPcVFZ1eAsAAQTo
+AwAABOgDAABQSwMECgAAAAAAwG14R739I7I4AgAAOAIAAAkAHABlaWNhci56aXBVVAkAA5faVFal
+2lRWdXgLAAEE6AMAAAToAwAAUEsDBAoAAAAAAKpseEcujHDClAEAAJQBAAAHABwAZm9vLnppcFVU
+CQADkNhUVufYVFZ1eAsAAQToAwAABOgDAABQSwMECgAAAAAA4Wt4R/bxftfsAAAA7AAAAAkAHABl
+aWNhci56aXBVVAkAAxXXVFZh2FRWdXgLAAEE6AMAAAToAwAAUEsDBAoAAAAAAGAwpyw8z1FoRAAA
+AEQAAAAJABwAZWljYXIuY29tVVQJAAOE0Nc8ANVUVnV4CwABBOgDAAAE6AMAAFg1TyFQJUBBUFs0
+XFBaWDU0KFBeKTdDQyk3fSRFSUNBUi1TVEFOREFSRC1BTlRJVklSVVMtVEVTVC1GSUxFISRIK0gq
+UEsBAh4DCgAAAAAAYDCnLDzPUWhEAAAARAAAAAkAGAAAAAAAAQAAAKSBAAAAAGVpY2FyLmNvbVVU
+BQADhNDXPHV4CwABBOgDAAAE6AMAAFBLBQYAAAAAAQABAE8AAACHAAAAAABQSwECHgMKAAAAAADh
+a3hH9vF+1+wAAADsAAAACQAYAAAAAAAAAAAAtIEAAAAAZWljYXIuemlwVVQFAAMV11RWdXgLAAEE
+6AMAAAToAwAAUEsFBgAAAAABAAEATwAAAC8BAAAAAFBLAQIeAwoAAAAAAKpseEcujHDClAEAAJQB
+AAAHABgAAAAAAAAAAAC0gQAAAABmb28uemlwVVQFAAOQ2FRWdXgLAAEE6AMAAAToAwAAUEsFBgAA
+AAABAAEATQAAANUBAAAAAFBLAQIeAwoAAAAAAMBteEe9/SOyOAIAADgCAAAJABgAAAAAAAAAAAC0
+gQAAAABlaWNhci56aXBVVAUAA5faVFZ1eAsAAQToAwAABOgDAABQSwUGAAAAAAEAAQBPAAAAewIA
+AAAAUEsBAh4DCgAAAAAA1W54R6U3pXngAgAA4AIAAAcAGAAAAAAAAAAAALSBAAAAAGJhci56aXBV
+VAUAA6HcVFZ1eAsAAQToAwAABOgDAABQSwUGAAAAAAEAAQBNAAAAIQMAAAAA
+
+--_004_4FFDE40E6B423D42ACF00AC3846DF2FAAA563654EXCHMBX903corpc_--
