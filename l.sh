@@ -42,7 +42,10 @@ function ll() {
             lsflags='-l --time-style +%m-%d-%Y'
             os="linux"
         ;;
-    
+        CYGWIN*)
+            lsflags='--time-style +%m-%d-%Y -l'
+            os="cygwin"
+        ;;
         *) # presume something GNUish and hope for the best
             lsflags='--time-style +%m-%d-%Y -l'
             os="linux"
