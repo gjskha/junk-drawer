@@ -1,22 +1,43 @@
+function perm_calc {
+
+}
+
+function format_date {
+
+    case $(uname) in
+        NetBSD)
+            dateflags="-lT"
+        ;;
+        Linux) 
+            dateflags='-l --time-style +%m-%d-%Y'
+        ;;
+        CYGWIN*)
+            dateflags='--time-style +%m-%d-%Y -l'
+        ;;
+        *) # presume something GNUish and hope for the best
+            dateflags='--time-style +%m-%d-%Y -l'
+        ;;
+    esac
+    
+    clean=`date $dateflags +%m/%d/%Y"`
+    echo -n $clean
+}
+
 function ll() {
-    echo @ is $@
-    while getopts alQ opt; do
+    echo "@ is $@"
+    while getopts Q opt; do
         case $opt in
             Q)
-                do_stuff=1 # else pass through
+                # do the stuff
             ;;
-            a)
-                af="-a"
-            ;;
-            l)
-                lp=true
+            *)
+                # pass on the args to ls
+                ls "$@" 
             ;;
         esac
-        shift "$((OPTIND - 1))" 
     done
     
     echo
-    echo @ is $@
     if [ -z $@ ] ; then
     #if  $@ ) ; then
         echo "Contents of $(pwd):"
@@ -33,7 +54,7 @@ function ll() {
         FreeBSD)
             lsflags="-l -D %m-%d-%Y"
             os="freebsd"
-        ;;
+       ;;
         SunOS)
             lsflags="-le"
             os="sunos"
@@ -52,13 +73,6 @@ function ll() {
         ;;
     esac
  
-
-
-    # run ls through the args, then filter? or just switch if not custom
-   
-    if [ ! -z $af ]; then
-        lsflags=$lsflags" -a" 
-    fi
     
     # long or short permissions style
     ls $lsflags "$@" | awk -v os="$os" -v lp="$lp" '

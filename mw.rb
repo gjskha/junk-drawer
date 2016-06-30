@@ -1,7 +1,5 @@
 #!/usr/pkg/bin/ruby -w
 
-# mw.rb by gjskha
-
 # A very long time ago I had a screen scraper shell script for the Merriam
 # Webster online dictionary. Of course, it broke at some point in the first
 # decade of this century, so now I have rewritten it using M-W's freemium API
@@ -35,25 +33,25 @@ art_url = 'http://www.merriam-webster.com/art/dict/'
 
 
 def help
+
     puts <<-eohelp
+        #{$0} -- get a definition from the Merriam-Webster dictionary
+        Usage:
+        $ #{$0} -h
+        $ #{$0} -s -p -x -c -w [word]
 
-#{$0} -- get a definition from the Merriam-Webster dictionary
-Usage:
-$ #{$0} -h
-$ #{$0} -s -p -x -c -w [word]
+        Where :
 
-Where :
-
--h prints this message
--w the word to look up
--c cache the results
--x check cache first for definition
--s play associated sound file, if available
--p display associated image, if available
-
-eohelp
+        -h prints this message
+        -w the word to look up
+        -c cache the results
+        -x check cache first for definition
+        -s play associated sound file, if available
+        -p display associated image, if available
+    eohelp
 
     exit
+
 end
 
 opt = Getopt::Std.getopts("chspxw:")
