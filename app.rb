@@ -1,15 +1,16 @@
 #!/usr/bin/ruby 
+# Bailiwick.rb - a web front-end to async_rdns
 
-require 'rubygems'
 require 'sinatra/base'
 require 'active_record'
 require 'ipaddr'
+require 'netaddr'
 
 module Model
-    
+
     ActiveRecord::Base.establish_connection(
-      :adapter => 'sqlite3',
-      :database =>  'db/padbail_development.db'
+        :adapter => 'sqlite3',
+        :database =>  'db/addresses.db'
     )
     
     class Address < ActiveRecord::Base
@@ -18,9 +19,11 @@ module Model
         validates :created_at, presence: true
         validates :dotquad, presence: true
     end
+
 end
 
-module Control    
+module Control
+
     class Index < Sinatra::Base
 
         enable :inline_templates
@@ -29,22 +32,51 @@ module Control
         end
     
         get '/' do
+
             @addresses = Model::Address.where(status: -1)
-            @cidrInput = params['c']
+            @ci = params[:ci]
+
+            # data validation
+            @hash = Hash.new
+
+            if @ci then
+                range = NetAddr::CIDR.create(@ci)
+                first = IPAddr.new(range.first).to_i           
+                last = IPAddr.new(range.last).to_i 
+                @addresses = Model::Address.order(:address).where("address >= #{first} and address <= #{last}") 
+                @addresses.each do |ar|
+                    # determining default view should go here
+                    (@hash[ar.dotquad.to_s] ||= []) << { ar.created_at.to_s => ar.rdns.to_s }
+                end
+                #puts hash.inspect
+            end
             erb :index
         end
         
         post '/' do
-            @skipValue = params[:skipValue]
-            @cidrInput = params[:cidrInput]
 
-            # myip = IPAddr.new dotquad
+            @sv = params[:sv]
+            @ci = params[:ci]
 
             # data validation here
-            puts "skipValue: #{@skipValue}" 
-            puts "cidrInput: #{@cidrInput}" 
-            raw_output = `bin/async_rdns -i #{@skipValue} #{@cidrInput}`
-            # map         
+            raw_output = `bin/async_rdns -i #{@sv} #{@ci}`.split("\n")
+            # check for rv/err
+
+            raw_output.each do |line|
+                dotquad, rdns = line.split
+                myip = IPAddr.new dotquad
+                address = Model::Address.new
+                address.rdns = rdns
+                address.status = 0
+                address.address = myip.to_i
+                address.dotquad = dotquad
+                address.created_at = Time.now
+                address.save
+
+                redirect to("/?ci=#{@ci}&sv=#{@sv}")
+
+            end
+
         end
     end
 end
@@ -62,21 +94,21 @@ __END__
   <div class="container">
    <div class="twelve columns">
     <h1>Bailiwick
-      <% if defined?(@cidrInput) %>
-        - <%= @cidrInput %>
+      <% if defined?(@ci) %>
+        - <%= @ci %>
        <% end %>
     </h1>
     <form action="/" method="POST">
     <div class="row">
      <div class="eight columns">
-         <label for="cidrInput">Enter an IP range:</label>
-         <input class="u_full_width"  id="cidrInput" name="cidrInput">
-           <% if defined?(@cidrInput) %>
-             <%= @cidrInput %></input>
+         <label for="ci">Enter an IP range:</label>
+         <input class="u_full_width"  id="ci" name="ci">
+           <% if defined?(@ci) %>
+             <%= @ci %></input>
            <% end %>
-       <label for="skipValue">Enter a skip value between 1 and 128:</label>
-         <!-- <input class="u-full-width"  id="skipValue"> -->
-         <select class="u_full_width" id="skipValue" name="skipValue">
+       <label for="sv">Enter a skip value between 1 and 128:</label>
+         <!-- <input class="u-full-width"  id="sv"> -->
+         <select class="u_full_width" id="sv" name="sv">
            <option value="1">1</option>
            <option value="2">2</option>
            <option value="4">4</option>
