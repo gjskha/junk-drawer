@@ -1,5 +1,11 @@
 function perm_calc {
 
+    perm=$1
+    echo $perm | awk '
+
+
+'
+
 }
 
 function format_date {
@@ -9,13 +15,13 @@ function format_date {
             dateflags="-lT"
         ;;
         Linux) 
-            dateflags='-l --time-style +%m-%d-%Y'
+            dateflags='-d'
         ;;
         CYGWIN*)
-            dateflags='--time-style +%m-%d-%Y -l'
+            dateflags='-d'
         ;;
         *) # presume something GNUish and hope for the best
-            dateflags='--time-style +%m-%d-%Y -l'
+            dateflags='-d'
         ;;
     esac
     
