@@ -37,18 +37,17 @@ module Control
             @ci = params[:ci]
 
             # data validation
-            @hash = Hash.new
 
             if @ci then
                 range = NetAddr::CIDR.create(@ci)
+            @addresses = Hash.new
                 first = IPAddr.new(range.first).to_i           
                 last = IPAddr.new(range.last).to_i 
-                @addresses = Model::Address.order(:address).where("address >= #{first} and address <= #{last}") 
-                @addresses.each do |ar|
+                raw_query = Model::Address.order(:address).where("address >= #{first} and address <= #{last}") 
+                raw_query.each do |ar|
                     # determining default view should go here
-                    (@hash[ar.dotquad.to_s] ||= []) << { ar.created_at.to_s => ar.rdns.to_s }
+                    (@addresses[ar.dotquad.to_s] ||= []) << { ar.created_at.to_s => ar.rdns.to_s }
                 end
-                #puts hash.inspect
             end
             erb :index
         end
@@ -85,74 +84,94 @@ Control::Index.run!
 
 __END__
 @@ index
+<!DOCTYPE html>
 <html>
- <head>
-  <link rel="stylesheet" href="http://gjskha.github.io/css/normalize.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="http://gjskha.github.io/css/stdlib.css" type="text/css" media="screen" />
- </head>
- <body>
-  <div class="container">
-   <div class="twelve columns">
-    <h1>Bailiwick
-      <% if defined?(@ci) %>
-        - <%= @ci %>
-       <% end %>
-    </h1>
-    <form action="/" method="POST">
-    <div class="row">
-     <div class="eight columns">
-         <label for="ci">Enter an IP range:</label>
-         <input class="u_full_width"  id="ci" name="ci">
-           <% if defined?(@ci) %>
-             <%= @ci %></input>
-           <% end %>
-       <label for="sv">Enter a skip value between 1 and 128:</label>
-         <!-- <input class="u-full-width"  id="sv"> -->
-         <select class="u_full_width" id="sv" name="sv">
-           <option value="1">1</option>
-           <option value="2">2</option>
-           <option value="4">4</option>
-           <option value="8" selected>8</option>
-           <option value="16">16</option>
-           <option value="32">32</option>
-           <option value="64">64</option>
-           <option value="128">128</option>
-         </select>
+<head>
+    <link href="http://gjskha.github.io/css/normalize.css" media="screen" rel=
+    "stylesheet" type="text/css">
+    <link href="http://gjskha.github.io/css/stdlib.css" media="screen" rel=
+    "stylesheet" type="text/css">
+
+    <title>
+        Bailiwick <%if defined?(@ci) %> - <%= @ci %> <% end %>
+    </title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="twelve columns">
+            <h1>Bailiwick <%if defined?(@ci) %> - <%= @ci %> <% end %></h1>
+
+
+            <form action="/" method="post">
+                <div class="row">
+                    <div class="eight columns">
+                        <label for="ci">Enter an IP range:</label>
+                        <input class="u_full_width" id="ci" name="ci" value=
+                        "<%= @ci %>"> <%end %> <label for="sv">Enter a skip
+                        value between 1 and 128:</label> 
+                         <select class="u_full_width" id="sv" name="sv">
+                            <option value="1">
+                                1
+                            </option>
+
+                            <option value="2">
+                                2
+                            </option>
+
+                            <option value="4">
+                                4
+                            </option>
+
+                            <option selected value="8">
+                                8
+                            </option>
+
+                            <option value="16">
+                                16
+                            </option>
+
+                            <option value="32">
+                                32
+                            </option>
+
+                            <option value="64">
+                                64
+                            </option>
+
+                            <option value="128">
+                                128
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </form>
         </div>
-       </div>
-     </div>
-     <input class="button_primary" value="Submit" type="submit">
-   </form>
-   <br />
-   <table class="u_full_width">
-    <thead>
-     <tr>
-      <th>Address</th>
-      <th>Status</th>
-      <th>Scanned</th>
-      <th>Reverse</th>
-     </tr>
-    </thead>
-    <tbody>
-    <% @addresses.each do |address| %>
-    <tr>
-     <td>
-      <%= address.dotquad %>
-     </td>
-     <td>
-      <%= address.status %>
-     </td>
-     <td>
-      <%= address.created_at %>
-     </td>
-     <td>
-      <%= address.rdns %>
-     </td>
-    </tr>
-    <% end %>
-    </tbody>
-   </table>
-   </div>
-  </div>
- </body>
+        <input class="button_primary" type="submit" value="Submit"> <br>
+        <%@addresses.each do |dotquad,lookups| %>
+
+        <ul>
+            <li>
+                <h2><%= dotquad %>
+                </h2>
+
+
+                <ul>
+                    <% lookups.each do |lookup| %>
+                        <%lookup.each do |created_at, rdns| %>
+
+                    <li><%= created_at %>
+                    </li>
+
+
+                    <li><%= rdns %>
+                    </li>
+                    <% end %>
+                    <% end %>
+                </ul>
+            </li>
+        </ul>
+        <% end %>
+    </div>
+</body>
 </html>
