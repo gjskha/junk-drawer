@@ -104,12 +104,11 @@ function insertionsort() {
         i=$(( $i + 1 ))	
     done
 
-echo -n "After sorting the array:"
-for elem in "${the_array[@]}" ; do
-     echo -n "$elem "
-done
-echo 
-
+    echo -n "After sorting the array:"
+    for elem in "${the_array[@]}" ; do
+        echo -n "$elem "
+    done
+    echo 
 
 }
 
