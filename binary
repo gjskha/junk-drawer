@@ -1,0 +1,24 @@
+
+function binary() {
+    n=$1
+    if [[ $n -eq 0 || $n -eq 1 ]]; then
+        answer=`echo -n $n; echo -n $answer`
+        return
+      
+    fi
+    k=$(( $n / 2 ))
+    b=$(( $n % 2 ))
+    answer=`echo -n $b; echo -n $answer`
+    binary $k 
+}
+
+unset answer
+binary 25; echo $answer
+unset answer
+binary 4; echo $answer 
+unset answer
+binary 7; echo $answer 
+unset answer
+binary 1; echo $answer 
+unset answer
+binary 3; echo $answer 
