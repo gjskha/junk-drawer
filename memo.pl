@@ -24,3 +24,4 @@ while (1) {
 	chomp $n;
 	my $f = fib($n); 
 	print " -> $f\n"
+}
