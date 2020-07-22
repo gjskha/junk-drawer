@@ -54,6 +54,8 @@ sound_files.each { |x|
 	# fetchme += "number/"
 	# Else add the first letter of the wav file as a subdirectory
 
+	Net::HTTP.get(URI(sound_url))
+
 	if caching
 		puts "saving"
 	else
@@ -68,7 +70,7 @@ end
 # defaults for things the user can season to taste.
 $defaults = { 
 	:player => "mplayer", 
-	:viewer => "shotwell", 
+	:viewer => "gthumb", 
 	:cache =>  ENV['HOME'] + "/.mw", 
 	:config => ENV['HOME'] + "/.mwrc", 
 	"key" => "default"
@@ -78,7 +80,9 @@ base_url =  'https://www.dictionaryapi.com/api/v3/references/collegiate/json/'
 # this is the server where the sound files live
 sound_url = 'http://media.merriam-webster.com/soundc11/'
 # some entries have gif files associated with them
-art_url = 'http://www.merriam-webster.com/art/dict/'
+art_url = 'https://www.merriam-webster.com/assets/mw/static/art/dict/' 
+
+#catapult.gif
 
 # parse command line options
 
@@ -94,6 +98,7 @@ if opt["C"]
 else
 	config = parse_config($defaults[:config])
 end
+
 
 if config == nil
 	config = $defaults
@@ -131,7 +136,17 @@ json.each { |entry|
 	# display image
 	if opt["p"]
 		if entry["art"]
-			puts "art " + entry["art"]["artid"]
+			art_file = entry["art"]["artid"] + ".gif"
+			art_url += art_file
+			art = Net::HTTP.get(URI(art_url))
+			File.write(art_file, art)
+			system("#{config['viewer']} #{art_file} 2>/dev/null &")
+
+			if caching
+				puts "saving"
+			else
+				puts "deleting"
+			end
 		end
 	end
 
@@ -146,15 +161,12 @@ json.each { |entry|
 		if entry.dig('hwi', 'prs', 0, 'sound', 'audio')
 			sound_files.push(entry.dig('hwi', 'prs', 0, 'sound', 'audio'))
 		end
-		#	sound_files.push(entry["uros"].first["prs"].first["sound"]["audio"])
-		#	sound_files.push(entry["hwi"]["prs"].first["sound"]["audio"])
 	end
 
 	#print the definition
 	puts entry["meta"]["id"] 
 
 	entry["shortdef"].each { |shortdef|
-		
 		puts  " -- " + shortdef
 	}
 }
